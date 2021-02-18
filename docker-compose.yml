@@ -1,0 +1,17 @@
+version: '2'
+services:
+  filebeat:
+    image: mailbyms/filebeat-spring-logback:7.10.2
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./springboot.yml:/usr/share/filebeat/modules.d/springboot.yml
+      - /data/tiac/biz/logs/tiac:/data/tiac/biz/logs/tiac
+      - /data/tiac/provider/logs/tiac:/data/tiac/provider/logs/tiac
+      - spring_logback:/usr/share/filebeat/data
+    network_mode: "host"
+    environment:
+      - "TZ=Asia/Shanghai"
+
+volumes:
+  spring_logback:
+    driver: local
